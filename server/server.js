@@ -13,21 +13,19 @@ const io = socketIO(server);
 app.use(express.static(publicPath));
 
 io.on('connection', socket => {
-  console.log('New user connected');
-
   socket.emit(
     'welcomeMessage',
-    generateMessage('Admin', 'welcome to the chat app')
+    generateMessage('Admin', 'welkom in de chat app')
   );
 
   socket.broadcast.emit(
     'welcomeMessage',
-    generateMessage('Admin', 'new user joined')
+    generateMessage('Admin', 'nieuwe gebruiker gejoined')
   );
 
   socket.on('createMessage', (message, callback) => {
     io.emit('newMessage', generateMessage(message.from, message.text));
-    callback('This is from the server');
+    callback();
     // socket.broadcast.emit('newMessage', {
     //   from: message.from,
     //   text: message.text,
