@@ -9,15 +9,17 @@ socket.on('disconnect', function() {
 });
 
 socket.on('newMessage', function(message) {
+  const formattedTime = moment(message.createdAt).format('h:mm a');
   const li = $('<li></li>');
-  li.text(`${message.from}: ${message.text}`);
+  li.text(`${message.from} ${formattedTime}: ${message.text}`);
 
   $('#messages').append(li);
 });
 
 socket.on('welcomeMessage', function(message) {
+  const formattedTime = moment(message.createdAt).format('h:mm a');
   const li = $('<li></li>');
-  li.text(`${message.from}: ${message.text}`);
+  li.text(`${message.from} ${formattedTime}: ${message.text}`);
 
   $('#messages').append(li);
 });
