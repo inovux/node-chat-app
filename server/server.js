@@ -17,16 +17,17 @@ io.on('connection', socket => {
 
   socket.emit(
     'welcomeMessage',
-    generateMessage('Admin', 'Welcome to the chat app')
+    generateMessage('Admin', 'welcome to the chat app')
   );
 
   socket.broadcast.emit(
     'welcomeMessage',
-    generateMessage('Admin', 'New user joined')
+    generateMessage('Admin', 'new user joined')
   );
 
-  socket.on('createMessage', message => {
+  socket.on('createMessage', (message, callback) => {
     io.emit('newMessage', generateMessage(message.from, message.text));
+    callback('This is from the server');
     // socket.broadcast.emit('newMessage', {
     //   from: message.from,
     //   text: message.text,
