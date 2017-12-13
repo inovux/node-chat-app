@@ -10,18 +10,35 @@ socket.on('disconnect', function() {
 
 socket.on('newMessage', function(message) {
   const formattedTime = moment(message.createdAt).format('h:mm a');
-  const li = $('<li></li>');
-  li.text(`${message.from} ${formattedTime}: ${message.text}`);
+  const template = $('#message-template').html();
+  const html = Mustache.render(template, {
+    from: message.from,
+    text: message.text,
+    createdAt: formattedTime
+  });
 
-  $('#messages').append(li);
+  $('#messages').append(html);
+  // const li = $('<li></li>');
+  // li.text(`${message.from} ${formattedTime}: ${message.text}`);
+  //
+  // $('#messages').append(li);
 });
 
 socket.on('welcomeMessage', function(message) {
   const formattedTime = moment(message.createdAt).format('h:mm a');
-  const li = $('<li></li>');
-  li.text(`${message.from} ${formattedTime}: ${message.text}`);
+  const template = $('#message-template').html();
+  const html = Mustache.render(template, {
+    from: message.from,
+    text: message.text,
+    createdAt: formattedTime
+  });
 
-  $('#messages').append(li);
+  $('#messages').append(html);
+
+  // const li = $('<li></li>');
+  // li.text(`${message.from} ${formattedTime}: ${message.text}`);
+  //
+  // $('#messages').append(li);
 });
 
 $('#message-form').on('submit', function(e) {
